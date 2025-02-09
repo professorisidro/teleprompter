@@ -10,6 +10,33 @@ let fontSize = 24;
 
 function load(){
 	textElement = document.getElementById("scrollText");
+	document.addEventListener("keydown", function(event) {
+		switch(event.key) {
+			case " ":
+				toggleScroll();
+				event.preventDefault();
+				break;
+			case "a":
+				increaseSpeed();
+				break;
+			case "s":
+				decreaseSpeed();
+				break;
+			case "d":
+				toggleTheme();
+				break;
+			case "f":
+				toggleMirror();
+				break;
+			case "q":
+				increaseFontSize();
+				break;
+			case "w":
+				decreaseFontSize();
+				break;
+		}
+	});
+
 }
 
 function scrollText() {
@@ -73,7 +100,6 @@ function toggleMirror() {
 }
 
 async function fetchGoogleDoc() {
-	// SUBSTITUA PELO SEU ID DO GOOGLE DOCS
     const docLink = document.getElementById("txtLink").value;
     console.log(docLink);
     let tmpLink = docLink.replace("https://docs.google.com/document/d/","");
