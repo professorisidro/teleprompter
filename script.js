@@ -1,25 +1,40 @@
-let globalSpeed = 0.5;
-let currentSpeed = 0;
-let fontSize = 18;
-let fontStep = 6;
-let speedStep = 0.5;
-let googleDocID = "";
-let mode = 1;
 
 let position = window.innerHeight;
+let speed = 1; // Ajuste a velocidade aqui
 let animationFrame;
 let scrolling = false;
+let darkMode = true;
+let mirrored = false;
+let textElement;
+let fontSize = 24;
+
+function load(){
+	textElement = document.getElementById("scrollText");
+}
 
 function scrollText() {
+
 	if (scrolling) {
-        let textElement = document.getElementById("scrollText");
-        currentSpeed = globalSpeed;
-		position -= currentSpeed;
+		position -= speed;
 		textElement.style.top = position + "px";
 		if (position + textElement.offsetHeight < 0) {
 			position = window.innerHeight;
 		}
 		animationFrame = requestAnimationFrame(scrollText);
+	}
+}
+
+function toggleScroll() {
+	let toggleButton = document.getElementById("toggleScroll");
+	scrolling = !scrolling;
+	if (scrolling) {
+		scrollText();
+		toggleButton.innerHTML = '<i class="fa-solid fa-pause"></i>';
+	} else {
+		cancelAnimationFrame(animationFrame);
+		toggleButton.innerHTML = '<i class="fa-solid fa-play"></i>';
+		toggleButton.classList.remove("btn-danger");
+		toggleButton.classList.add("btn-primary");
 	}
 }
 
@@ -35,10 +50,27 @@ function stopScroll() {
 	cancelAnimationFrame(animationFrame);
 }
 
-function openModal(){
-    document.getElementById("btnModal").click();
+function increaseSpeed() {
+	speed += 0.5;
 }
 
+function decreaseSpeed() {
+	if (speed > 0.5) {
+		speed -= 0.5;
+	}
+}
+
+function toggleTheme() {
+	darkMode = !darkMode;
+	document.body.style.backgroundColor = darkMode ? "#000" : "#fff";
+	document.body.style.color = darkMode ? "#fff" : "#000";
+}
+
+function toggleMirror() {
+	//let textElement = document.getElementById("scrollText");
+	mirrored = !mirrored;
+	textElement.style.transform = mirrored ? "scaleX(-1)" : "scaleX(1)";
+}
 
 async function fetchGoogleDoc() {
 	// SUBSTITUA PELO SEU ID DO GOOGLE DOCS
@@ -60,29 +92,17 @@ async function fetchGoogleDoc() {
 		document.getElementById("scrollText").innerHTML = text.replace(/\n/g, "<br>");
 	} catch (error) {
 		alert("Erro ao carregar o documento.");
-		console.error(error);
 	}
 }
 
-function changeMode(){
-
-}
-function increaseFont(){
-	fontSize += fontStep;
-	document.getElementById("scrollText").style = `font-size:${fontSize}px;`;
-}
-function decreaseFont(){
-	fontSize -= fontStep;
-	document.getElementById("scrollText").style = `font-size:${fontSize}px;`;
+function increaseFontSize() {
+	fontSize += 2;
+	textElement.style.fontSize = fontSize + "px";
 }
 
-function increaseSpeed(){
-	globalSpeed += speedStep;
+function decreaseFontSize() {
+	if (fontSize > 12) {
+		fontSize -= 2;
+		textElement.style.fontSize = fontSize + "px";
+	}
 }
-function decreaseSpeed(){
-	globalSpeed -= speedStep;
-    if (globalSpeed <= 0){
-        globalSpeed = 0;
-    }
-}
-
