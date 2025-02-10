@@ -10,6 +10,16 @@ Como eu uso: eu coloco o tablet bem abaixo da webcam para que meu olho não fiqu
 - Alternar entre Dark e Light mode
 - Modo espelhado (caso você use algum equipamento mais profissional de teleprompter)
 
+## Suporte a controle por teclas
+Funcionalidade útil para quem tem tablet com teclado Bluetooth, por permitir controle remoto. Aqui estão as funcionalidades:
+- ESPAÇO - Inicia/Pausa a rolagem
+- A - Aumenta Velocidade
+- S - Diminui a Velocidade
+- D - Alterna Dark/Light Mode
+- F - Espelha a Tela (Flip)
+- Q - Aumenta Fonte
+- W - Diminui a fonte
+
 ## Tecnologias
 - HTML
 - CSS
